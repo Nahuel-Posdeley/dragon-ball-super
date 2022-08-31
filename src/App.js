@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import CardItem from './components/card/Card';
 import { FormControl, OutlinedInput } from '@mui/material';
-
+import SignIn from './components/form/Form';
 function App() {
   const [data,setData] = useState(null)
   const [search,setSearch] = useState('')
@@ -30,6 +30,7 @@ function App() {
   }
   return (
     <>
+    <SignIn/>
         <div className='container__input'>
           <FormControl sx={{ width: '50ch',background: '#fff', borderRadius: '5px' }}>
           <OutlinedInput value={search} onChange={searcher} type='search' placeholder="Please enter text" />
