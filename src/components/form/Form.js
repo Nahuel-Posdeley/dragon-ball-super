@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -6,11 +6,38 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import './style.css'
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function Form({
+  data,
+  setData,
+}) {
+  const [name,setName] = useState('')
+  const [specie,setSpecie] = useState('')
+  const [role,setRole] = useState('')
+  const [universe,setUniverse] = useState('')
+  const [characterImg,setCharacterImg] = useState('')
+  function handleSubmit(e){
+    e.preventDefault();
+    if(![name,specie,role,universe,characterImg].includes('')){
+      let obj = {
+        id: data.length + 1,
+        name,
+        specie,
+        role,
+        universe,
+        imageUrl: characterImg,
+      }
+      setData([...data,obj])
+      setName('')
+      setRole('')
+      setSpecie('')
+      setUniverse('')
+      setCharacterImg('')
+    }
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -25,16 +52,17 @@ export default function SignIn() {
           }}
         >
           <Typography sx={{
-            textShadow: '3px 3px #f3ca4c'
-          }} fontSize='40px' fontWeight='bold' color='#fff' variant="h5">
+          }} fontSize='40px' fontWeight='bold' color='#000' variant="h5">
             New character
           </Typography>
-          <Box>
+          <form onSubmit={handleSubmit}>
           <TextField
               margin="normal"
               type="text"
               placeholder='Name'
               fullWidth
+              value={name}
+              onChange={(e)=> setName(e.target.value)}
               sx={{
                 background: '#fff',
                 color: 'red',
@@ -46,6 +74,8 @@ export default function SignIn() {
               type="text"
               placeholder='Specie'
               fullWidth
+              value={specie}
+              onChange={(e)=> setSpecie(e.target.value)}
               sx={{
                 background: '#fff',
                 color: 'red',
@@ -57,6 +87,8 @@ export default function SignIn() {
               type="text"
               placeholder='Role'
               fullWidth
+              value={role}
+              onChange={(e)=> setRole(e.target.value)}
               sx={{
                 background: '#fff',
                 color: 'red',
@@ -68,6 +100,22 @@ export default function SignIn() {
               type="text"
               placeholder='Universe'
               fullWidth
+              value={universe}
+              onChange={(e)=> setUniverse(e.target.value)}
+              sx={{
+                background: '#fff',
+                color: 'red',
+                borderRadius: '5px'
+              }}
+            />
+            <TextField
+              margin="normal"
+              type="text"
+              fullWidth
+              value={characterImg}
+              onChange={(e)=> setCharacterImg(e.target.value)}
+              placeholder='Link image'
+              required
               sx={{
                 background: '#fff',
                 color: 'red',
@@ -82,7 +130,7 @@ export default function SignIn() {
             >
               ADD
             </Button>
-          </Box>
+          </form>
         </Box>
       </Container>
     </ThemeProvider>

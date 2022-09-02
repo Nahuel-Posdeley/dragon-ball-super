@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import CardItem from './components/card/Card';
-import { FormControl, OutlinedInput } from '@mui/material';
-import SignIn from './components/form/Form';
+import { TextField } from '@mui/material';
+import Form from './components/form/Form';
+import Modal from './components/modal/Modal';
+
 function App() {
   const [data,setData] = useState(null)
   const [search,setSearch] = useState('')
@@ -16,7 +18,6 @@ function App() {
 
   const searcher = e => {
     setSearch(e.target.value)
-    console.log(e.target.value)
   }
   //metodo filtrado
 
@@ -28,18 +29,40 @@ function App() {
       return item.name.toLowerCase().includes(search.toLocaleLowerCase())
     })
   }
+
+  // remove item
+  function removeItem(id){
+    let isRemove = window.confirm('estas seguro que quieres eliminar?');
+    if(isRemove){
+      const newItem = result.filter(item => item.id !== id)
+      setData(newItem)
+    }
+  }
   return (
     <>
-    <SignIn/>
         <div className='container__input'>
-          <FormControl sx={{ width: '50ch',background: '#fff', borderRadius: '5px' }}>
-          <OutlinedInput value={search} onChange={searcher} type='search' placeholder="Please enter text" />
-          </FormControl>
+          <TextField
+              margin="normal"
+              type="search"
+              placeholder='Search character'
+              value={search}
+              onChange={searcher}
+              sx={{
+                paddingTop: 0,
+                width: '30%',
+                background: '#fff',
+                color: 'red',
+                borderRadius: '5px'
+              }}
+            />
+            <Modal children={<Form data={data} setData={setData} />
+} />
         </div>
     <div className="container__card">
       {result && result.map(item => {
         return <CardItem
             key={item.id}
+            removeItem={()=>removeItem(item.id)}
             name={item.name}
             image={item.imageUrl}
             role={item.role}

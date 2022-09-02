@@ -3,9 +3,12 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import { Box, CardActionArea } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import './styles.css'
+import { red } from '@mui/material/colors';
 const CardItem = ({
+  removeItem,
   image,
   name,
   specie,
@@ -14,12 +17,14 @@ const CardItem = ({
 }) => {
   return (
     <Card className='card__item' >
+      <Box display='flex' justifyContent='end'>
+      <DeleteIcon onClick={()=>removeItem()} sx={{color: red[800],fontSize: 30,margin:2}} />
+      </Box>
       <CardActionArea>
         <CardMedia
           component="img"
           height="200"
           image={image}
-          alt="green iguana"
           style={{
             objectFit : 'contain'
           }}
