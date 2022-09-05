@@ -16,9 +16,6 @@ function App() {
   .catch(err => console.log(err, 'algo salio mal'))
   },[]);
 
-  const searcher = e => {
-    setSearch(e.target.value)
-  }
   //metodo filtrado
 
   let result = [];
@@ -46,7 +43,7 @@ function App() {
               type="search"
               placeholder='Search character'
               value={search}
-              onChange={searcher}
+              onChange={(e)=> setSearch(e.target.value)}
               sx={{
                 paddingTop: 0,
                 width: '30%',
