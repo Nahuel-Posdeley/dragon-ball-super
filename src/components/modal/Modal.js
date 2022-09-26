@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from '@mui/material/Modal';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { yellow } from '@mui/material/colors';
 import { Box } from '@mui/system';
 
 
@@ -19,14 +17,10 @@ const style = {
 
 export default function KeepMountedModal({
   children,
-}) {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+}, open, handleClose) {
 
   return (
     <>
-      <AddCircleIcon sx={{color: yellow[900],fontSize: 50}} onClick={handleOpen}/>
       <Modal
         open={open}
         onClose={handleClose}

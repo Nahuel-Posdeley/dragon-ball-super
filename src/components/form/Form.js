@@ -13,6 +13,7 @@ const theme = createTheme();
 export default function Form({
   data,
   setData,
+  setOpen,
 }) {
   const [name,setName] = useState('')
   const [specie,setSpecie] = useState('')
@@ -36,6 +37,7 @@ export default function Form({
       setSpecie('')
       setUniverse('')
       setCharacterImg('')
+      setOpen(false);
     }
   }
 
